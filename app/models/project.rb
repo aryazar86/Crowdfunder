@@ -15,4 +15,18 @@ class Project < ActiveRecord::Base
     return "#{days} days, #{hours} hours, #{minutes} minutes"
   end
 
+
+  def funded
+    counter = 0
+    self.contributions.each do |c|
+      counter += c.amount.to_i
+
+    end
+
+    left = self.goal - counter
+    percent = ((counter/self.goal.to_f)* 100).ceil
+
+    "$#{counter} of $#{self.goal} (#{percent}%) has been raised, leaving $#{left} to go."
+  end
+
 end
