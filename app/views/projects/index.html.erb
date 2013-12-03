@@ -1,4 +1,8 @@
 <h1> Our projects </h1>
+<% if current_user %>
+  <%= link_to "Create a project", "projects/new" %>
+<% end %>
+  
 <ul id="projects">
   <%= render @projects %>
 </ul>
