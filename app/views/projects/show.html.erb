@@ -1,4 +1,6 @@
-<h1>Project:</h1> <h2><%= project.name %></h2><% end %>
-Description: <%= project.description %><br/>
-Goal: <%= project.goal %><br/>
-Deadline: <%= project.deadline %>
+<h1>Project:</h1> <h2><%= @project.name %></h2>
+Description: <%= @project.description %><br/>
+Goal: <%= @project.goal %> <br/>
+Deadline: <%= @project.deadline %>
+
+<p>Time to deadline: <%= @project.time_left%></p>

@@ -3,7 +3,7 @@ class UserSessionsController < ApplicationController
   def new
     # @user = User.new
   end
-        
+
   def create
     user = login(params[:email], params[:password])
     if user
@@ -16,7 +16,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to(:users, notice: 'Logged out!')
+    redirect_to root_url, notice: 'Logged out!'
   end
 
 end
