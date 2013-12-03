@@ -1,7 +1,14 @@
 Crowdfunder::Application.routes.draw do
-  get "user_sessions/new"
-  get "user_sessions/create"
-  get "user_sessions/destroy"
+  
+  root :to => "projects#index"
+
+  # get "user_sessions/new"
+  # get "user_sessions/create"
+  # get "user_sessions/destroy"
+
+  get "login" => "user_sessions#new", :as => "signup"
+
+  resources :user_sessions
 
   resources :users do 
     resources :contributions
