@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
     @projects = Project.all
   end
 
-  def new 
+  def new
     @project = Project.new
   end
 
@@ -19,6 +19,10 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+
+    if current_user
+      @contribution = @project.contributions.build
+    end
   end
 
   def edit
@@ -45,6 +49,6 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:name, :description, :goal, :deadline)
   end
-  
+
 end
 

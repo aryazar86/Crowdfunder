@@ -4,3 +4,22 @@ Goal: <%= @project.goal %> <br/>
 Deadline: <%= @project.deadline %>
 
 <p>Time to deadline: <%= @project.time_left%></p>
+
+<h1>Current contributions!</h1>
+<% @project.contributions.each do |c| %>
+  <% if c.amount %>
+   <p> <%= c.user.username %> contributed $<%= c.amount %></p>
+  <% end %>
+<% end %>
+
+
+<p> Make a contribution!</p>
+<%= form_for [@project, @contribution] do |f| %>
+ <div>
+  <p><%=f.label "Contribution amount:" %></p>
+  <p><%=f.text_field :amount  %></p>
+
+ <p> <%= f.submit %></p>
+</div>
+
+<% end %>
