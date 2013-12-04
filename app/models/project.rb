@@ -22,6 +22,10 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def started
+    (self.start_time - DateTime.now) < 0
+  end
+
 
   def funded
     counter = 0
