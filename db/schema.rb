@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20131204183904) do
-=======
-ActiveRecord::Schema.define(version: 20131204183033) do
 
   create_table "comments", force: true do |t|
     t.integer  "project_id"
@@ -23,7 +20,6 @@ ActiveRecord::Schema.define(version: 20131204183033) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
->>>>>>> 964c0e2a20ea30dc4b8fda3900fcfd5b173bb422
 
   create_table "contributions", force: true do |t|
     t.integer  "user_id"
