@@ -8,16 +8,22 @@ class Project < ActiveRecord::Base
 
     time = self.deadline - DateTime.now
 
-    minutes = (time/60%60).ceil
-    days = (time /60/60/24).floor
-    hours = (time/60/60%24).floor
+    if time >  0
 
-    return "#{days} days, #{hours} hours, #{minutes} minutes"
+      minutes = (time/60%60).ceil
+      days = (time /60/60/24).floor
+      hours = (time/60/60%24).floor
+
+      return "Time left: #{days} days, #{hours} hours, #{minutes} minutes"
+    else
+      return "This project is now closed."
+    end
   end
 
 
   def funded
     counter = 0
+    message = ""
     self.contributions.each do |c|
       counter += c.amount.to_i
 
@@ -26,7 +32,11 @@ class Project < ActiveRecord::Base
     left = self.goal - counter
     percent = ((counter/self.goal.to_f)* 100).ceil
 
-    "$#{counter} of $#{self.goal} (#{percent}%) has been raised, leaving $#{left} to go."
+    if percent >= 100
+      "Project has been fully funded! $#{counter} of $#{self.goal} (#{percent}%) has been raised. "
+    else
+      "$#{counter} of $#{self.goal} (#{percent}%) has been raised, leaving $#{left} to go."
+    end
   end
 
 end

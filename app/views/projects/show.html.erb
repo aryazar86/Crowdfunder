@@ -1,25 +1,30 @@
 <h1>Project:</h1> <h2><%= @project.name %></h2>
+<p><small><%= link_to "Edit this project", edit_project_path %></small></p>
 Description: <%= @project.description %><br/>
 <%= @project.funded %> <br/>
 Deadline: <%= @project.deadline %>
 
-<p>Time to deadline: <%= @project.time_left%></p>
+<p><%= @project.time_left%></p>
 
 <h1>Current contributions!</h1>
+<ul>
 <% @project.contributions.each do |c| %>
   <% if c.amount %>
-   <p> <%= c.user.username %> contributed $<%= c.amount %></p>
+   <li> <%= c.user.username %> contributed $<%= c.amount %></li>
   <% end %>
 <% end %>
+</ul>
 
 
-<p> Make a contribution!</p>
-<%= form_for [@project, @contribution] do |f| %>
- <div>
-  <p><%=f.label "Contribution amount:" %></p>
-  <p><%=f.text_field :amount  %></p>
+<% if current_user %>
+  <%= form_for [@project, @contribution] do |f| %>
+   <div>
+    <p><%=f.label "Make a contribution!" %></p>
+    <p><%=f.text_field :amount  %></p>
 
- <p> <%= f.submit %></p>
-</div>
-
+   <p> <%= f.submit "Contribute!" %></p>
+  </div>
+  <%end%>
+<% else %>
+  Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!
 <% end %>
