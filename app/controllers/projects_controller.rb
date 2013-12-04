@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
 
     if current_user
       @contribution = @project.contributions.build
+      @comment = @project.comments.build
     end
   end
 

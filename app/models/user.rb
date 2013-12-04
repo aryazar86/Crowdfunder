@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   # this is for users creating projects
   has_many :projects
 
+  has_many :comments
+  has_many :commented_projects, :through => :comments, :class_name => "Project"
+
   def amount_contributed
     total = 0
 
