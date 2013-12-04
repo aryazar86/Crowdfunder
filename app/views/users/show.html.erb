@@ -8,7 +8,7 @@
   <% end %>
   <p> You have contributed a total of $<%= @user.amount_contributed %>.</p>
 
-  <p>You bio: <%= @user.bio %></p>
+  <p>Your bio: <%= @user.bio %></p>
 
 <% else %>
 
@@ -17,3 +17,14 @@
   <p><%= @user.bio %> </p>
 
 <% end %>
+<p>Projects created by <%=@user.username %>:</p>
+<ul>
+<% @user.projects.each do |p| %>
+  
+  
+  <li>
+    <%=p.name %>: $<%= p.goal %>
+  </li>
+  <p><%= p.description %></p>
+<% end %>
+</ul>
