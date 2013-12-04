@@ -1,5 +1,9 @@
 <h1>Project:</h1> <h2><%= @project.name %></h2>
+
+<% if @project.validate_owner(current_user) %>
 <p><small><%= link_to "Edit this project", edit_project_path %></small></p>
+<% end %>
+
 Description: <%= @project.description %><br/>
 <%= @project.funded %> <br/>
 Deadline: <%= @project.deadline %>

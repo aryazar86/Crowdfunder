@@ -39,4 +39,15 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def validate_owner(current_user)
+
+    if self.user_id == current_user.id
+      true
+    else
+      false
+    end
+  end
+      
+   
+
 end
