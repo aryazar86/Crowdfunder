@@ -1,0 +1,2 @@
+$('#contributions').html("<h1><%= @category_choice.name%></h1><div>$<%=@category_sum %> raised!</div>")
+$("#projects").html("<%= j(render :partial => 'project', :object => @projects ) %>");

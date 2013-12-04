@@ -6,6 +6,8 @@ class Project < ActiveRecord::Base
   has_many :comments
   has_many :users, :through => :comments
 
+  belongs_to :category
+
   def time_left
 
     time = self.deadline - DateTime.now
@@ -22,6 +24,9 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def total_contributions
+    self.contributions.sum(:amount)
+  end
 
   def funded
     counter = 0

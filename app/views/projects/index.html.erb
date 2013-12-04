@@ -1,8 +1,11 @@
-<h1> Our projects </h1>
 <% if current_user %>
   <%= link_to "Create a project", new_project_path %>
 <% end %>
 
+<%= select_tag "category_choices", options_for_select(Category.all.map { |c| [ c.name, c.id ] } ) %>
+<%= submit_tag "Submit", :id => "category_choices_submit", "data-url" => projects_by_category_path %>
+
+<div id="contributions"><h1 id="title">Projects</h1></div>
 <ul id="projects">
-  <%= render @projects %>
+  <%= render :partial => 'project', :object =>  @projects %>
 </ul>
