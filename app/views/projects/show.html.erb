@@ -9,26 +9,50 @@ Description: <%= @project.description %><br/>
 Deadline: <%= @project.deadline %>
 
 <p><%= @project.time_left%></p>
+<div style="width:80%">
+  <div style="float:left"><h1>Current contributions!</h1>
+    <ul>
+    <% @project.contributions.each do |c| %>
+      <% if c.amount %>
+       <li> <%= c.user.username %> contributed $<%= c.amount %></li>
+      <% end %>
+    <% end %>
+    </ul>
 
-<h1>Current contributions!</h1>
-<ul>
-<% @project.contributions.each do |c| %>
-  <% if c.amount %>
-   <li> <%= c.user.username %> contributed $<%= c.amount %></li>
-  <% end %>
-<% end %>
-</ul>
+    <% if current_user %>
+      <%= form_for [@project, @contribution] do |f| %>
+       <div>
+        <p><%=f.label "Make a contribution!" %></p>
+        <p><%=f.text_field :amount  %></p>
 
-
-<% if current_user %>
-  <%= form_for [@project, @contribution] do |f| %>
-   <div>
-    <p><%=f.label "Make a contribution!" %></p>
-    <p><%=f.text_field :amount  %></p>
-
-   <p> <%= f.submit "Contribute!" %></p>
+       <p> <%= f.submit "Contribute!" %></p>
+      </div>
+      <%end%>
+    <% else %>
+      Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!
+    <% end %>
   </div>
-  <%end%>
-<% else %>
-  Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!
-<% end %>
+
+  <div style="float:right"><h1>Comments:</h1>
+    <ul>
+    <% @project.comments.each do |c| %>
+      <% if c.note %>
+       <li> <%= c.note %> <em> by <%= c.user.username %> </em></li>
+      <% end %>
+    <% end %>
+    </ul>
+    <% if current_user %>
+      <%= form_for [@project, @comment] do |f| %>
+       <div>
+          <p><%=f.label "Comment:" %></p>
+          <p><%=f.text_field :note  %></p>
+
+         <p> <%= f.submit "Submit" %></p>
+        </div>
+      <%end%>
+      <% else %>
+        Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!
+      <% end %>
+   </div>
+ </div>
+
