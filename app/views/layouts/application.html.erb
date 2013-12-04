@@ -15,6 +15,13 @@
       <% end %>
     </p>
 
+      <% if flash[:notice] %>
+        <div id="notice" data-notice class="alert-box info radius"><%= flash[:notice] %></div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div id="alert" data-alert class="alert-box warning radius"><%= flash[:alert] %></div>
+      <% end %>
+      
 <%= yield %>
 
 </body>
