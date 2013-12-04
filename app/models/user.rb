@@ -25,4 +25,15 @@ class User < ActiveRecord::Base
 
     return total
   end
+
+
+  def validate_user(current_user)
+
+    if self.id == current_user.id
+      true
+    else
+      false
+    end
+  end
+
 end

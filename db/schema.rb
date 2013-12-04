@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204183904) do
+ActiveRecord::Schema.define(version: 20131204213244) do
 
   create_table "comments", force: true do |t|
     t.integer  "project_id"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20131204183904) do
     t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "bio"
   end
 
 end
