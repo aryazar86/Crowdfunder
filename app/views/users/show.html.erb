@@ -2,7 +2,7 @@
 <% if @user.validate_user(current_user) %>
   <h1>Hi, <%= @user.username %>!</h1>
 
-  <!-- <img_tag src=<%#="#{ @user.avatar }" %>> -->
+  
   <%= image_tag(@user.avatar, :class => "bio_pic") %>
 
   <h2> Your activity on Crowdfunder: </h2>

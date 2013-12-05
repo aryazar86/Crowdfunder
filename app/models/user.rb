@@ -1,9 +1,13 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
-  
-  mount_uploader :avatar, AvatarUploader
+
+   mount_uploader :avatar, AvatarUploader
+
+  validates :password, confirmation: true
+  validates :password_confirmation, presence: true
 
   validates_presence_of :password, :on => :create
+
   validates_presence_of :email
   validates_uniqueness_of :email
 
