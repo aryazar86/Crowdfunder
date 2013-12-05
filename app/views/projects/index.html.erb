@@ -2,6 +2,8 @@
   <%= link_to "Create a project", new_project_path %>
 <% end %>
 
+<h2>$<%= @contributions.sum(:amount) %> contributed by <%= @contributions.map { |c| [c.user_id, c.amount] }.uniq{ |x| x.first }.count %> people across all CrowdFunder projects.</h2>
+
 <%= select_tag "category_choices", options_for_select(Category.all.map { |c| [ c.name, c.id ] } ) %>
 <%= submit_tag "Submit", :id => "category_choices_submit", "data-url" => projects_by_category_path %>
 

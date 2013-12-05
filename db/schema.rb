@@ -42,9 +42,9 @@ ActiveRecord::Schema.define(version: 20131205043108) do
     t.datetime "deadline"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "category_id"
     t.integer  "user_id"
     t.datetime "start_time"
+    t.integer  "category_id"
   end
 
   create_table "users", force: true do |t|
