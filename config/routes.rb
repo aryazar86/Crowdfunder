@@ -14,7 +14,9 @@ Crowdfunder::Application.routes.draw do
 
   resources :user_sessions
 
-  resources :users
+  resources :users do
+    resources :comments
+  end
 
   resources :projects do
     resources :contributions

@@ -1,0 +1,11 @@
+<%= form_for [commentable, comment] do |f| %>
+  <div>
+    <p><%=f.label "Comment:" %></p>
+    <p><%=f.text_field :note  %></p>
+
+    <%= f.hidden_field :commentable_type %>
+    <%= f.hidden_field :commentable_id %>
+
+   <p> <%= f.submit "Submit" %></p>
+  </div>
+<%end%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205043108) do
+ActiveRecord::Schema.define(version: 20131205215037) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -20,11 +20,12 @@ ActiveRecord::Schema.define(version: 20131205043108) do
   end
 
   create_table "comments", force: true do |t|
-    t.integer  "project_id"
+    t.integer  "commentable_id"
     t.integer  "user_id"
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "commentable_type"
   end
 
   create_table "contributions", force: true do |t|
@@ -42,9 +43,9 @@ ActiveRecord::Schema.define(version: 20131205043108) do
     t.datetime "deadline"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "category_id"
     t.integer  "user_id"
     t.datetime "start_time"
+    t.integer  "category_id"
   end
 
   create_table "users", force: true do |t|

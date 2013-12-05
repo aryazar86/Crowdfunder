@@ -1,8 +1,9 @@
 <h1>Project:</h1> <h2><%= @project.name %></h2>
 
-<% if current_user && @project.validate_owner(current_user) %>
-<p><small><%= link_to "Edit this project", edit_project_path %></small></p>
+<% if @current_user && @project.validate_owner(@current_user) %>
+    <p><small><%= link_to "Edit this project", edit_project_path %></small></p>
 <% end %>
+
 
 Description: <%= @project.description %><br/>
 <%= @project.funded %> <br/>
@@ -40,24 +41,13 @@ Deadline: <%= @project.deadline %>
 
   <div style="float:right"><h1>Comments:</h1>
     <ul>
-    <% @project.comments.each do |c| %>
-      <% if c.note %>
-       <li> <%= c.note %> <em> by <%= c.user.username %> </em></li>
-      <% end %>
-    <% end %>
+      <%= render @project.comments %>
     </ul>
     <% if current_user %>
-      <%= form_for [@project, @comment] do |f| %>
-       <div>
-          <p><%=f.label "Comment:" %></p>
-          <p><%=f.text_field :note  %></p>
-
-         <p> <%= f.submit "Submit" %></p>
-        </div>
-      <%end%>
-      <% else %>
+      <%= render partial: "comments/form", locals: {commentable: @project, comment: @comment} %>
+    <% else %>
         Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!
-      <% end %>
+    <% end %>
    </div>
  </div>
 

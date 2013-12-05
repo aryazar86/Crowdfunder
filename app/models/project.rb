@@ -3,8 +3,7 @@ class Project < ActiveRecord::Base
   has_many :contributions
   has_many :users, :through => :contributions
 
-  has_many :comments
-  has_many :users, :through => :comments
+  has_many :comments, :as => :commentable
 
   belongs_to :category
 

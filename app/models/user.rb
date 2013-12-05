@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
-  
+
   mount_uploader :avatar, AvatarUploader
 
   validates_presence_of :password, :on => :create
@@ -15,8 +15,7 @@ class User < ActiveRecord::Base
   # this is for users creating projects
   has_many :projects
 
-  has_many :comments
-  has_many :commented_projects, :through => :comments, :class_name => "Project"
+  has_many :comments, :as => :commentable
 
   def amount_contributed
     total = 0

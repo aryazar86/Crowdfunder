@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :require_login, :except => [:new, :create, :show]
+
   def new
     @user = User.new
   end
@@ -14,9 +16,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @comment = @user.comments.build
 
   end
-  
+
   def edit
     @user = User.find(params[:id])
   end

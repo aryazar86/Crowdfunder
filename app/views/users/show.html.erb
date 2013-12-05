@@ -2,7 +2,6 @@
 <% if @user.validate_user(current_user) %>
   <h1>Hi, <%= @user.username %>!</h1>
 
-  <!-- <img_tag src=<%#="#{ @user.avatar }" %>> -->
   <%= image_tag(@user.avatar, :class => "bio_pic") %>
 
   <h2> Your activity on Crowdfunder: </h2>
@@ -14,8 +13,8 @@
   <p>Your bio: <%= @user.bio %></p>
 
 <% else %>
-  
-  <img src=<%='#{ @user.avatar }' %>>
+
+<p><%= image_tag(@user.avatar, :class => "bio_pic") %></p>
 
   <h1><%= @user.username %>!</h1>
 
@@ -25,11 +24,17 @@
 <p>Projects created by <%=@user.username %>:</p>
 <ul>
 <% @user.projects.each do |p| %>
-  
-  
   <li>
     <%=p.name %>: $<%= p.goal %>
   </li>
   <p><%= p.description %></p>
 <% end %>
 </ul>
+
+<ul>
+  <%= render @user.comments %>
+</ul>
+
+<% if current_user != @user %>
+    <%= render partial: "comments/form", locals: {commentable: @user, comment: @comment} %>
+<% end %>

@@ -1,17 +1,17 @@
 class CommentsController < ApplicationController
-  before_filter :load_project
-  before_filter :ensure_logged_in, :only => [:edit, :create, :show, :update, :destroy]
+  before_filter :load_commentable
+  before_filter :require_login, :only => [:edit, :create, :show, :update, :destroy]
 
   def show
     @comment = Comment.find(params[:id])
   end
 
   def create
-    @comment = @project.comments.build(comment_params)
-    @comment.user_id = current_user.id
+    @comment = @commentable.comments.build(comment_params)
+    @comment.user = current_user
 
     if @comment.save
-      redirect_to project_path(@project.id), notice: "Comment added successfully!"
+      redirect_to url_for(@commentable), notice: "Comment added successfully!"
     else
       render 'projects/show', alert: "There was an error with your comment."
     end
@@ -24,10 +24,12 @@ class CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:note, :project_id, :user_id)
+    params.require(:comment).permit(:note, :commentable_id, :commentable_type, :user_id)
   end
 
-  def load_project
-    @project = Project.find(params[:project_id])
+  def load_commentable
+    @commentable = params[:comment][:commentable_type]
+                    .constantize
+                    .find(params[:comment][:commentable_id])
   end
 end
