@@ -26,14 +26,13 @@ class Project < ActiveRecord::Base
     (self.start_time - DateTime.now) < 0
   end
 
+  def fully_funded
+    self.contributions.sum(:amount) >= self.goal
+  end
+
 
   def funded
-    counter = 0
-    message = ""
-    self.contributions.each do |c|
-      counter += c.amount.to_i
-
-    end
+    counter = self.contributions.sum(:amount)
 
     left = self.goal - counter
     percent = ((counter/self.goal.to_f)* 100).ceil
