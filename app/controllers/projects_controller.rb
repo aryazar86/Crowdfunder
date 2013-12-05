@@ -20,6 +20,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @owner = User.find(@project.user_id)
 
     if current_user
       @contribution = @project.contributions.build
