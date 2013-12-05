@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
+  
+  mount_uploader :avatar, AvatarUploader
 
   validates_presence_of :password, :on => :create
   validates_presence_of :email
@@ -25,4 +27,15 @@ class User < ActiveRecord::Base
 
     return total
   end
+
+
+  def validate_user(current_user)
+
+    if self.id == current_user.id
+      true
+    else
+      false
+    end
+  end
+
 end

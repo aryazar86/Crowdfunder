@@ -1,7 +1,35 @@
-<h1>Hi, <%= @user.username %>!</h1>
 
-<h2> Your activity on Crowdfunder: </h2>
-<% @user.contributions.each do |c| %>
-  <p>You contributed to the <%= link_to c.project.name, project_path(c.project_id) %> project in the amount of $<%= c.amount %>.</p>
+<% if @user.validate_user(current_user) %>
+  <h1>Hi, <%= @user.username %>!</h1>
+
+  <!-- <img_tag src=<%#="#{ @user.avatar }" %>> -->
+  <%= image_tag(@user.avatar, :class => "bio_pic") %>
+
+  <h2> Your activity on Crowdfunder: </h2>
+  <% @user.contributions.each do |c| %>
+    <p>You contributed to the <%= link_to c.project.name, project_path(c.project_id) %> project in the amount of $<%= c.amount %>.</p>
+  <% end %>
+  <p> You have contributed a total of $<%= @user.amount_contributed %>.</p>
+
+  <p>Your bio: <%= @user.bio %></p>
+
+<% else %>
+  
+  <img src=<%='#{ @user.avatar }' %>>
+
+  <h1><%= @user.username %>!</h1>
+
+  <p><%= @user.bio %> </p>
+
 <% end %>
-<p> You have contributed a total of $<%= @user.amount_contributed %>.</p>
+<p>Projects created by <%=@user.username %>:</p>
+<ul>
+<% @user.projects.each do |p| %>
+  
+  
+  <li>
+    <%=p.name %>: $<%= p.goal %>
+  </li>
+  <p><%= p.description %></p>
+<% end %>
+</ul>

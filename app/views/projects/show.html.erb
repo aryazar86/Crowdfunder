@@ -8,6 +8,11 @@ Description: <%= @project.description %><br/>
 <%= @project.funded %> <br/>
 Deadline: <%= @project.deadline %>
 
+<p><%= link_to image_tag(@owner.avatar, :class => "bio_pic"), user_path(@project.user_id) %></p>
+
+
+<p><%= link_to "View the creator's profile", user_path(@project.user_id) %></p>
+
 <p><%= @project.time_left%></p>
 <div style="width:80%">
   <div style="float:left"><h1>Current contributions!</h1>
