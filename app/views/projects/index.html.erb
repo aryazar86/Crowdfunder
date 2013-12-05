@@ -6,3 +6,27 @@
 <ul id="projects">
   <%= render @projects %>
 </ul>
+
+<% count = 0 %>
+<% @projects.each do |p| %>
+<% if p.fully_funded %>
+<% count += 1 %>
+<% end %>
+<% end %>
+
+<ul id="fully_funded_projects">
+  <h1>Fully funded projects (<%= count %>)</h1> 
+  <h2>Most recent fully funded projects:</h2> 
+  <% counter = 0 %>
+  <% @projects.each do |p| %>
+  <% if p.fully_funded %>
+  <li>
+  <%= p.name %>
+</li>
+<% counter += 1 %>
+<% end %>
+<% if counter >= 5 %>
+<% break %>
+<% end %>
+<% end %>
+</ul>
