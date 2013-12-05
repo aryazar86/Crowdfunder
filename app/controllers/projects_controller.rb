@@ -18,6 +18,24 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def by_category
+    @category_choice = Category.find(params[:category_choice].to_i)
+    @projects = @category_choice.projects
+    @category_sum = 0
+
+    @projects.each {|p| @category_sum +=  p.total_contributions}
+
+
+    # @category_count = @category_choice.projects.contributions.count
+
+    @category_choice
+    respond_to do |format|
+      format.js {}
+      format.html { redirect_to projects_path }
+    end
+
+  end
+
   def show
     @project = Project.find(params[:id])
     @owner = User.find(@project.user_id)
@@ -29,25 +47,21 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    
     @project = Project.find(params[:id])
     if @project.validate_owner(current_user)
       # redirect_to edit_project_path
     else
       redirect_to projects_path, :alert => "You must be the owner to edit a project."
     end
-    
   end
 
   def update
     @project = Project.find(params[:id])
-    
       if @project.update_attributes(project_params)
         redirect_to projects_path
       else
         render :edit
       end
-    
   end
 
   def destroy
@@ -58,8 +72,7 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:name, :description, :goal, :deadline, :user_id, :start_time)
+    params.require(:project).permit(:name, :description, :goal, :deadline, :user_id, :start_time, :category_id)
   end
-
 end
 

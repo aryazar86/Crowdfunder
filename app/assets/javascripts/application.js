@@ -14,3 +14,24 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+
+  $('#category_choices_submit').on('click', function(event)
+  {
+    event.preventDefault();
+    var categoryChoice = $('#category_choices').val();
+    var url = '/projects/by_category';
+    $.ajax({
+      url: url,
+      dateType: 'script',
+      data: {
+        category_choice: categoryChoice
+      },
+      success: function(result) {
+        eval(result);
+      }
+    });
+  });
+
+});
