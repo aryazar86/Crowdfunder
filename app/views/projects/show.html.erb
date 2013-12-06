@@ -15,6 +15,7 @@ Deadline: <%= @project.deadline %>
 <p><%= link_to "View the creator's profile", user_path(@project.user_id) %></p>
 
 <p><%= @project.time_left%></p>
+<% unless @project.time_left == "This project is now closed." %>
 <div style="width:80%">
   <div style="float:left"><h1>Current contributions!</h1>
     <ul>
@@ -50,4 +51,5 @@ Deadline: <%= @project.deadline %>
     <% end %>
    </div>
  </div>
+ <% end %>
 
