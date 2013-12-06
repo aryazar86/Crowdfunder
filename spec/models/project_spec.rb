@@ -59,4 +59,4 @@ describe Project do
 
     project.funded.should == 100
   end
-
+end
