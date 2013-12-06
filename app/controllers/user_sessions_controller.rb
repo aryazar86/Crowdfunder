@@ -4,11 +4,11 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    user = login(params[:email], params[:password])
+    user = login(params[:email], params[:password], params[:remember_me])
     if user
       redirect_back_or_to root_url :notice => 'Login successful'
     else
-      flash.now[:alert] = "Login failed"
+      flash.now.alert = "Login failed"
       render action: "new"
     end
   end

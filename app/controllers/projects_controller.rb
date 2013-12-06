@@ -68,8 +68,15 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find(params[:id])
-    @project.destroy
-    redirect_to projects_path
+    
+    #create a value to determine if funds have been contributed
+    counter = 0
+    @sum = @project.contributions.each{|x| counter +=x.amount}
+
+    # if @project.validate_owner(current_user) && @sum ==0
+      @project.destroy
+      redirect_to projects_path
+    # end
   end
 
   private
