@@ -30,10 +30,12 @@ class User < ActiveRecord::Base
 
   def validate_user(current_user)
 
-    if self.id == current_user.id
-      true
+    if current_user
+      if self.id == current_user.id
+        true
+      end
     else
-      false
+       false
     end
   end
 
