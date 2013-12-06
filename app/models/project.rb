@@ -43,9 +43,11 @@ class Project < ActiveRecord::Base
     percent = ((counter/self.goal.to_f)* 100).ceil
 
     if percent >= 100
-      "Project has been fully funded! $#{counter} of $#{self.goal} (#{percent}%) has been raised. "
+      percent = 100
+      # "Project has been fully funded! $#{counter} of $#{self.goal} (#{percent}%) has been raised. "
     else
-      "$#{counter} of $#{self.goal} (#{percent}%) has been raised, leaving $#{left} to go."
+      percent
+      # "$#{counter} of $#{self.goal} (#{percent}%) has been raised, leaving $#{left} to go."
     end
   end
 

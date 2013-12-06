@@ -1,6 +1,3 @@
-<% if current_user %>
-  <%= link_to "Create a project", new_project_path %>
-<% end %>
 
 <h2>$<%= @contributions.sum(:amount) %> contributed by <%= @contributions.map { |c| [c.user_id, c.amount] }.uniq{ |x| x.first }.count %> people across all CrowdFunder projects.</h2>
 
@@ -20,8 +17,8 @@
 <% end %>
 
 <ul id="fully_funded_projects">
-  <h1>Fully funded projects (<%= count %>)</h1> 
-  <h2>Recent fully funded projects:</h2> 
+  <h1>Fully funded projects (<%= count %>)</h1>
+  <h2>Recent fully funded projects:</h2>
   <% counter = 0 %>
   <% @projects.each do |p| %>
   <% if p.fully_funded %>
