@@ -1,4 +1,4 @@
-// 
+//
 // FOUNDATION SETTINGS
 //
 
@@ -30,7 +30,7 @@
 
 // $include-html-grid-classes: $include-html-classes;
 
-// $row-width: rem-calc(1000);
+ $row-width: rem-calc(1000);
 // $column-gutter: rem-calc(30);
 // $total-columns: 12;
 
@@ -866,8 +866,8 @@
 // $include-html-tabs-classes: $include-html-classes;
 
 // $tabs-navigation-padding: rem-calc(16);
-// $tabs-navigation-bg-color: #efefef  ;
-// $tabs-navigation-hover-bg-color: darken($tabs-navigation-bg-color, 5%);
+$tabs-navigation-bg-color: #efefef  ;
+$tabs-navigation-hover-bg-color: darken($tabs-navigation-bg-color, 5%);
 // $tabs-navigation-font-color: #222;
 // $tabs-navigation-font-size: rem-calc(16);
 // $tabs-navigation-font-family: $body-font-family;

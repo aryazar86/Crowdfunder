@@ -1,34 +1,39 @@
+<div class="row">
+  <div class="medium-4 columns">
 
-<h2>$<%= @contributions.sum(:amount) %> contributed by <%= @contributions.map { |c| [c.user_id, c.amount] }.uniq{ |x| x.first }.count %> people across all CrowdFunder projects.</h2>
+    <h2>Search by Category:    </h2>
+    <%= select_tag "category_choices", options_for_select(Category.all.map { |c| [ c.name, c.id ] } ) %>
+    <%= submit_tag "Submit", :id => "category_choices_submit", "data-url" => projects_by_category_path %>
 
-<%= select_tag "category_choices", options_for_select(Category.all.map { |c| [ c.name, c.id ] } ) %>
-<%= submit_tag "Submit", :id => "category_choices_submit", "data-url" => projects_by_category_path %>
+    <hr />
+    <div class="centering_container_outer">
+      <div class="centering_container_inner">
+        <span class="success label">
+          <h4 id="contribution_totals">$<%= @contributions.sum(:amount) %> raised by our community of <%= @contributions.map { |c| [c.user_id, c.amount] }.uniq{ |x| x.first }.count %>!
+          </h4>
+        </span>
+      </div>
+    </div>
+    <hr />
 
-<div id="contributions"><h1 id="title">Projects</h1></div>
-<ul id="projects">
-  <%= render :partial => 'project', :object =>  @projects %>
-</ul>
+  <div class="panel">
+    <h3>Fully Funded Projects </h3>
+      <ul class="small-block-grid-2">
+        <% (@projects.map{|p| p if p.fully_funded }).each do |x| %>
+          <% if x != nil %>
+            <li>
+              <%= link_to (image_tag x.image_url.to_s, :id => "funded_projects"), project_path(x.id) %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 
-<% count = 0 %>
-<% @projects.each do |p| %>
-<% if p.fully_funded %>
-<% count += 1 %>
-<% end %>
-<% end %>
-
-<ul id="fully_funded_projects">
-  <h1>Fully funded projects (<%= count %>)</h1>
-  <h2>Recent fully funded projects:</h2>
-  <% counter = 0 %>
-  <% @projects.each do |p| %>
-  <% if p.fully_funded %>
-  <li>
-  <%= p.name %>
-</li>
-<% counter += 1 %>
-<% end %>
-<% if counter >= 5 %>
-<% break %>
-<% end %>
-<% end %>
-</ul>
+  <div class="medium-8 columns">
+    <div id="contributions"><h2 id="title">Projects</h2></div>
+    <ul id="projects" class= "medium-block-grid-3">
+      <%= render :partial => 'project', :object =>  @projects %>
+    </ul>
+  </div>
+</div>

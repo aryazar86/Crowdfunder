@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  mount_uploader :image, AvatarUploader
 
   has_many :contributions
   has_many :users, :through => :contributions

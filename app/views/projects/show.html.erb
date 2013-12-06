@@ -1,65 +1,92 @@
-<h1>Project:</h1> <h2><%= @project.name %></h2>
-
-
-<% if current_user && @project.validate_owner(current_user) %>
-<p><small><%= link_to "Edit this project", edit_project_path %></small></p>
-  <% if @sum != 0 %>
-  <p><%= link_to "Delete this project", @project, :confirm => "Are you sure you want to delete this project?", :method => :delete %></p>
-  <% end %>
-
-<% end %>
-
-
-Description: <%= @project.description %><br/>
-<div class="progress">
-  <span class="meter" style="width:<%= @project.funded %>% "> </span>
-</div>
-
-
- <br/>
-Deadline: <%= @project.deadline %>
-
-<p><%= link_to image_tag(@owner.avatar, :class => "bio_pic"), user_path(@project.user_id) %></p>
-
-
-<p><%= link_to "View the creator's profile", user_path(@project.user_id) %></p>
-
-<p><%= @project.time_left%></p>
-<% unless @project.time_left == "This project is now closed." %>
-<div style="width:80%">
-  <div style="float:left"><h1>Current contributions!</h1>
-    <ul>
-    <% @project.contributions.each do |c| %>
-      <% if c.amount %>
-       <li> <%= c.user.username %> contributed $<%= c.amount %></li>
-      <% end %>
-    <% end %>
-    </ul>
-
-    <% if current_user %>
-      <%= form_for [@project, @contribution] do |f| %>
-       <div>
-        <p><%=f.label "Make a contribution!" %></p>
-        <p><%=f.text_field :amount  %></p>
-
-       <p> <%= f.submit "Contribute!" %></p>
-      </div>
-      <%end%>
+<div class="row">
+  <div class="medium-4 columns">
+    <h2>Project: <%= @project.name %></h2>
+    <%= link_to image_tag(@owner.avatar), user_path(@project.user_id), :class =>"user_pic" %>
+    <h5>By: <%= link_to @owner.username, user_path(@project.user_id)%></h5>
+    <h5 ><%= @project.time_left%></h5>
+    <br style="clear:both" />
+    <hr />
+    <div class="progress">
+      <span class="meter" style="width:<%= @project.funded %>% "> </span>
+    </div>
+    <% if current_user &&  @project.time_left != "This project is now closed." %>
+      <%= link_to "Make a Contribution", "#", :class => "button large success", :data => {"reveal-id" => "making_contribution"} %>
     <% else %>
-      Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!
+      <h6 class="text-center">Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!</h6>
     <% end %>
+
+    <div id="making_contribution" class="reveal-modal" data-reveal>
+      <h2>Awesome. I have it.</h2>
+      <p class="lead">Your couch.  It is mine.</p>
+      <p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
+      <%= link_to "&#215;", :class => "close-reveal-modal" %>
+    </div>
+
+    <dl class="tabs" data-tab>
+      <dd class="active"><a href="#panel2-1">Contributions</a></dd>
+      <dd><a href="#panel2-2">Comments</a></dd>
+    </dl>
+    <div class="tabs-content" style="width:100%">
+      <div class="content active" id="panel2-1">
+        <ul>
+        <% @project.contributions.each do |c| %>
+          <% if c.amount %>
+           <li> <%= c.user.username %> contributed $<%= c.amount %></li>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+      <div class="content" id="panel2-2">
+        <ul>
+          <%= render @project.comments %>
+        </ul>
+        <% if current_user %>
+          <%= render partial: "comments/form", locals: {commentable: @project, comment: @comment} %>
+        <% else %>
+          <h6 class="text-center">Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!</h6>
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <div style="float:right"><h1>Comments:</h1>
-    <ul>
-      <%= render @project.comments %>
-    </ul>
-    <% if current_user %>
-      <%= render partial: "comments/form", locals: {commentable: @project, comment: @comment} %>
-    <% else %>
-        Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!
-    <% end %>
-   </div>
- </div>
- <% end %>
+  <div class="medium-8 columns">
+    <%= image_tag @project.image_url.to_s, :class => "homepage_img" %>
+    <h5>Description:</h5><div><%= @project.description %></div>
+
+    <div style="width:80%">
+      <div style="float:left"><h1>Current contributions!</h1>
+        <ul>
+        <% @project.contributions.each do |c| %>
+          <% if c.amount %>
+           <li> <%= c.user.username %> contributed $<%= c.amount %></li>
+          <% end %>
+        <% end %>
+        </ul>
+
+        <% if current_user %>
+          <%= form_for [@project, @contribution] do |f| %>
+           <div>
+            <p><%=f.label "Make a contribution!" %></p>
+            <p><%=f.text_field :amount  %></p>
+
+           <p> <%= f.submit "Contribute!" %></p>
+          </div>
+          <%end%>
+        <% else %>
+          Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!
+        <% end %>
+      </div>
+
+      <div style="float:right"><h1>Comments:</h1>
+
+        <% if current_user %>
+          <%= render partial: "comments/form", locals: {commentable: @project, comment: @comment} %>
+        <% else %>
+            Please <%= link_to "log in", new_user_session_path %> or <%= link_to "sign up", new_user_path %> to contribute!
+        <% end %>
+       </div>
+     </div>
+  </div>
+</div>
+
 

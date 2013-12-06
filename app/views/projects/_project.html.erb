@@ -1,6 +1,7 @@
 <% @projects.each do |project| %>
   <% if project.started %>
       <li>
+        <%= image_tag project.image_url.to_s, :class => "homepage_img" %>
         <%= link_to project_path(project.id) do %><h2><%= project.name %></h2><% end %>
           Goal: $<%= project.goal %><br/>
           Deadline: <%= project.deadline %><br/>

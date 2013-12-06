@@ -38,3 +38,12 @@ $(document).ready(function() {
 });
 
 $(function(){ $(document).foundation(); });
+
+$(document).foundation({
+  tab: {
+    callback : function (tab) {
+      console.log(tab);
+    }
+  }
+});
+

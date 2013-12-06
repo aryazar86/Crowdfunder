@@ -13,3 +13,35 @@
 
  *= require_tree .
  */
+
+.user_pic{
+  width:100px;
+  float:left;
+  margin-right:15px;
+}
+
+ .homepage_img {
+  width:300px;
+ }
+
+#activity_callout_on_navbar {
+  color:#008cba;
+  margin-top: 10px;
+}
+
+#funded_projects {
+  width:100px;
+}
+
+.centering_container_outer {
+  width:100%;
+}
+
+.centering_container_inner {
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#contribution_totals {
+  color:white;
+}

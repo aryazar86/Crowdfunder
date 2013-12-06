@@ -22,22 +22,18 @@
         <!-- Right Nav Section -->
         <ul class="right">
           <% if current_user %>
-            <li class="active"><%= link_to current_user.username, user_path(current_user.id) %></li>
+                <li class="active"><%= link_to "Create a project", new_project_path %></li>
+
+                <li class="active"><%= link_to current_user.username, user_path(current_user.id) %></li>
+
             <li><%= link_to "Log out", user_session_path("current"), :method => :delete %></li>
           <% else %>
             <li class="active"><%= link_to "Log in", new_user_session_path %></li>
             <li><%= link_to "Sign up", new_user_path %></li>
           <% end %>
         </ul>
-
-          <% if current_user %>
-            <ul class="left">
-              <li><%= link_to "Create a project", new_project_path %></li>
-            </ul>
-          <% end %>
-
-            </section>
-          </nav>
+      </section>
+    </nav>
 
               <% if flash[:notice] %>
                 <div style="text-align:center" id="notice" data-notice class="alert-box info radius"><%= flash[:notice] %></div>

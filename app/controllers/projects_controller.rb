@@ -68,7 +68,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find(params[:id])
-    
+
     #create a value to determine if funds have been contributed
     counter = 0
     @sum = @project.contributions.each{|x| counter +=x.amount}
@@ -81,7 +81,7 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:name, :description, :goal, :deadline, :user_id, :start_time, :category_id)
+    params.require(:project).permit(:name, :description, :goal, :deadline, :user_id, :start_time, :category_id, :image)
   end
 end
 
