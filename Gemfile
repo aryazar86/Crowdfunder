@@ -54,6 +54,7 @@ gem 'carrierwave'
 
 group :development, :test do
   gem 'pry-rails'
+  gem 'rspec-rails'
   # gem 'pry-byebug'
 end
 
