@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :comments, :as => :commentable
 
   def amount_contributed
+    # self.contributions.sum(:amount)
     total = 0
 
     self.contributions.each do |c|
@@ -35,9 +36,8 @@ class User < ActiveRecord::Base
 
 
   def validate_user(current_user)
-
     if current_user
-      if self.id == current_user.id
+      if self == current_user
         true
       end
     else

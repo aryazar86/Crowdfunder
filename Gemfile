@@ -52,8 +52,11 @@ gem 'pry'
 
 gem 'carrierwave'
 
+
 group :development, :test do
   gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
   # gem 'pry-byebug'
 end
 

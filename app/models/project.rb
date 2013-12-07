@@ -8,12 +8,16 @@ class Project < ActiveRecord::Base
 
   belongs_to :category
 
-  def time_left
+  validates :name, presence: true
+  validates :goal, presence: true
+  validates :deadline, presence: true 
 
+
+  # replace with distance_of_time_in_words
+  def time_left
     time = self.deadline - DateTime.now
 
     if time >  0
-
       minutes = (time/60%60).ceil
       days = (time /60/60/24).floor
       hours = (time/60/60%24).floor
@@ -39,28 +43,11 @@ class Project < ActiveRecord::Base
 
   def funded
     counter = self.contributions.sum(:amount)
-
-    left = self.goal - counter
     percent = ((counter/self.goal.to_f)* 100).ceil
-
-    if percent >= 100
-      percent = 100
-      # "Project has been fully funded! $#{counter} of $#{self.goal} (#{percent}%) has been raised. "
-    else
-      percent
-      # "$#{counter} of $#{self.goal} (#{percent}%) has been raised, leaving $#{left} to go."
-    end
+    percent >= 100 ? 100 : percent
   end
 
   def validate_owner(current_user)
-
-    if self.user_id == current_user.id
-      true
-    else
-      false
-    end
+    self.user_id == current_user.id
   end
-
-
-
 end
